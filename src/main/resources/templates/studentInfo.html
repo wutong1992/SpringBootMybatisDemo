@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <!-- 使用th:object 搭配*{} 可以省略对象名  -->
+    <form action="/" th:object="${student}" >
+        <input type="hidden" name="Id" th:value="*{id}" />
+        <input type="text" name="name" th:value="*{name}" />
+        <input type="text" name="age" th:value="*{age}" />
+        <input type="text" name="sex" th:value="*{sex}" />
+        <input type="text" name="birthday" th:value="*{birthday}" />
+    </form>
+
+    <h2>用户列表</h2>
+    <!--说明： th:each="obj,stat:${objects}" 分别代表单个实例,状态(可省略),待遍历对象-->
+    <div th:each="student:${students}">
+        <input type="hidden" name="id" th:value="${student.id}"/>
+        姓名：<input type="text" name="name" th:value="${student.name}"/>
+        年龄：<input type="text" name="age" th:value="${student.age}"/>
+        性别：<input type="text" name="sex" th:value="${student.sex}"/>
+        生日：<input type="text" name="birthday" th:value="${student.birthday}"/>
+    </div>
+</body>
+</html>
