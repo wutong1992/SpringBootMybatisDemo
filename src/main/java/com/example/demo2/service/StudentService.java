@@ -15,4 +15,6 @@ public interface StudentService {
     StudentEntity getStudentEntityById(Integer id);
 
     List<StudentEntity> findAll();
+
+    List<StudentEntity> getList(Integer pageNum, Integer pageSize);
 }

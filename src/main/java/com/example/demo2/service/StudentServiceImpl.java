@@ -2,6 +2,7 @@ package com.example.demo2.service;
 
 import com.example.demo2.dao.StudentEntityMapper;
 import com.example.demo2.model.StudentEntity;
+import com.github.pagehelper.PageHelper;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -36,5 +37,12 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public List<StudentEntity> findAll() {
         return stuMapper.findAll();
+    }
+
+    @Override
+    public List<StudentEntity> getList(Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum,pageSize);
+        List<StudentEntity> stuList = stuMapper.findAll();
+        return stuList;
     }
 }

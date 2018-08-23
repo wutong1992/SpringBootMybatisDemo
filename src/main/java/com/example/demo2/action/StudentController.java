@@ -93,4 +93,10 @@ public class StudentController {
         }
         return "success";
     }
+
+    @RequestMapping(value = "/page")
+    @ResponseStatus(HttpStatus.OK)
+    public List<StudentEntity> pageList(@RequestParam("pageNum") Integer pageNum, @RequestParam("pageSize") Integer pageSize) {
+        return studentService.getList(pageNum,pageSize);
+    }
 }
