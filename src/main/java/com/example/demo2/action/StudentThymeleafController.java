@@ -25,24 +25,8 @@ public class StudentThymeleafController {
         return "index";
     }
 
-    @GetMapping("/student")
-    public String student(Model model) throws ParseException {
-        StudentEntity student = new StudentEntity();
-        student.setId(3);
-        student.setName("tom");
-        student.setSex("male");
-        student.setAge(24);
-        SimpleDateFormat dataformat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-        student.setBirthday(dataformat.parse("2018-12-12 08:12:12"));
-        model.addAttribute("student",student);
-        return "studentInfo";
-    }
-
     @GetMapping("/student/list")
     public String studentList(Model model) {
-        StudentEntity student = studentService.getStudentEntityById(5);
-        model.addAttribute("student",student);
-
         List<StudentEntity> students = studentService.findAll();
         model.addAttribute("students",students);
         return "studentInfo";
