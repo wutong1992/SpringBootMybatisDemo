@@ -1,5 +1,6 @@
 package com.example.demo2.action;
 
+import com.example.demo2.common.UserNameNotMatchPasswordException;
 import com.example.demo2.model.StudentEntity;
 import com.example.demo2.service.StudentService;
 import org.slf4j.Logger;
@@ -7,6 +8,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Date;
+import java.util.List;
 
 @RestController
 @RequestMapping("/student")
@@ -19,9 +23,9 @@ public class StudentController {
 
     @GetMapping(value = "/find")
     @ResponseStatus(HttpStatus.OK)
-    public StudentEntity find() {
+    public StudentEntity find(@RequestParam("id") Integer id) {
         logger.info("find method is starting...");
-        StudentEntity stu = studentService.getStudentEntityById(5);
+        StudentEntity stu = studentService.getStudentEntityById(id);
         if(stu != null) {
             logger.info("student name is " + stu.getName());
         }
@@ -31,10 +35,62 @@ public class StudentController {
         return stu;
     }
 
+    @GetMapping(value = "findAll")
+    @ResponseStatus(HttpStatus.OK)
+    public List<StudentEntity> findAll() {
+        return studentService.findAll();
+    }
+
+    @GetMapping(value = "delete")
+    public String deleteStu(@RequestParam("id") Integer id) {
+       Integer flag = studentService.remove(studentService.getStudentEntityById(id));
+       logger.info("flag:"+flag.toString());
+       return "删除成功！";
+    }
+
+    @GetMapping(value = "update")
+    @ResponseStatus(HttpStatus.OK)
+    public String updateStu() {
+        StudentEntity stu = new StudentEntity();
+        stu.setId(4);
+        stu.setAge(88);
+        studentService.update(stu);
+        return "更新成功！";
+    }
+
+    @GetMapping(value = "add")
+    @ResponseStatus(HttpStatus.OK)
+    public String add() {
+        StudentEntity stu = new StudentEntity();
+        stu.setId(5);
+        stu.setAge(33);
+        stu.setName("tao");
+        stu.setSex("female");
+        stu.setBirthday(new Date());
+        studentService.save(stu);
+        return "添加成功！";
+    }
+
     @GetMapping(value = "/hello")
     @ResponseStatus(HttpStatus.OK)
     public String hello() {
         return "hello world!";
     }
 
+    @RequestMapping(value = "/test")
+    public String testException(@RequestParam("i") int i) {
+        if(i==13) {
+            throw new UserNameNotMatchPasswordException();
+        }
+        return "success";
+    }
+
+    @RequestMapping(value = "/test1")
+    @ResponseStatus(value = HttpStatus.NOT_FOUND,reason = "测试")
+    public String test1Exception(@RequestParam("i") int i) {
+        if(i==13) {
+            throw new UserNameNotMatchPasswordException();
+        }
+        return "success";
+    }
 }
