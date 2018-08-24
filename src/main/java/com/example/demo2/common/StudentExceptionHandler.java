@@ -14,7 +14,7 @@ public class StudentExceptionHandler {
     @ExceptionHandler(value = Exception.class)
     public Object errorHandler(HttpServletRequest request,
                                HttpServletResponse response,
-                               Exception e) throws Exception {
+                               Exception e) {
         e.printStackTrace();
         if(isAjax(request)) {
             return response;
@@ -34,6 +34,6 @@ public class StudentExceptionHandler {
      */
     public static boolean isAjax(HttpServletRequest request) {
         return (request.getHeader("X-Requested-With") != null
-                && "XMLHttpRequest".equals(request.getHeader("X-Requested-With").toString()));
+                && "XMLHttpRequest".equals(request.getHeader("X-Requested-With")));
     }
 }
