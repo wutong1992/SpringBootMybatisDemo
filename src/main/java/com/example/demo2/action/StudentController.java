@@ -6,6 +6,7 @@ import com.example.demo2.service.StudentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -106,4 +107,14 @@ public class StudentController {
         int a = 1/0;
         return "success";
     }
+
+    @Autowired
+    private StringRedisTemplate strRedis;
+
+    @RequestMapping(value = "/redis")
+    public String testRedis() {
+        strRedis.opsForValue().set("zhu-cache","hello world!");
+        return strRedis.opsForValue().get("zhu-cache");
+    }
+
 }
