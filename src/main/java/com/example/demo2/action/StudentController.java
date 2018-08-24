@@ -1,5 +1,6 @@
 package com.example.demo2.action;
 
+import com.example.demo2.common.AsyncTask;
 import com.example.demo2.common.UserNameNotMatchPasswordException;
 import com.example.demo2.model.StudentEntity;
 import com.example.demo2.service.StudentService;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.Future;
 
 @RestController
 @RequestMapping("/student")
@@ -115,6 +117,30 @@ public class StudentController {
     public String testRedis() {
         strRedis.opsForValue().set("zhu-cache","hello world!");
         return strRedis.opsForValue().get("zhu-cache");
+    }
+
+    @Autowired
+    private AsyncTask asyncTask;
+
+    @RequestMapping(value = "/async")
+    public String asyncTest() throws Exception {
+        long start = System.currentTimeMillis();
+
+        Future<Boolean> a = asyncTask.doTask11();
+        Future<Boolean> b = asyncTask.doTask22();
+        Future<Boolean> c = asyncTask.doTask33();
+
+        while (!a.isDone() || !b.isDone() || !c.isDone()) {
+            if(a.isDone() && b.isDone() && c.isDone()) {
+                break;
+            }
+        }
+
+        long end = System.currentTimeMillis();
+
+        String times = "任务全部完成，总耗时：" + (end - start) + "毫秒！";
+        System.out.println(times);
+        return times;
     }
 
 }
