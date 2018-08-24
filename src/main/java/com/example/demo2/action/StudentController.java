@@ -99,4 +99,11 @@ public class StudentController {
     public List<StudentEntity> pageList(@RequestParam("pageNum") Integer pageNum, @RequestParam("pageSize") Integer pageSize) {
         return studentService.getList(pageNum,pageSize);
     }
+
+    @RequestMapping(value = "/error")
+    @ResponseStatus(HttpStatus.OK)
+    public String error() {
+        int a = 1/0;
+        return "success";
+    }
 }
