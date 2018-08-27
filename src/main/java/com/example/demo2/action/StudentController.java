@@ -3,7 +3,6 @@ package com.example.demo2.action;
 import com.example.demo2.common.AsyncTask;
 import com.example.demo2.common.ResultUtil;
 import com.example.demo2.common.StudentException;
-import com.example.demo2.common.UserNameNotMatchPasswordException;
 import com.example.demo2.model.ResultEntity;
 import com.example.demo2.model.StudentEntity;
 import com.example.demo2.service.StudentService;
@@ -88,23 +87,6 @@ public class StudentController {
     @ResponseStatus(HttpStatus.OK)
     public String hello() {
         return "hello world!";
-    }
-
-    @RequestMapping(value = "/test")
-    public String testException(@RequestParam("i") int i) {
-        if(i==13) {
-            throw new UserNameNotMatchPasswordException();
-        }
-        return "success";
-    }
-
-    @RequestMapping(value = "/test1")
-    @ResponseStatus(value = HttpStatus.NOT_FOUND,reason = "测试")
-    public String test1Exception(@RequestParam("i") int i) {
-        if(i==13) {
-            throw new UserNameNotMatchPasswordException();
-        }
-        return "success";
     }
 
     @RequestMapping(value = "/page")
