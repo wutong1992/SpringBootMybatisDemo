@@ -4,6 +4,7 @@ import com.example.demo2.common.AsyncTask;
 import com.example.demo2.common.ResultUtil;
 import com.example.demo2.common.StudentException;
 import com.example.demo2.model.ResultEntity;
+import com.example.demo2.model.ResultEnum;
 import com.example.demo2.model.StudentEntity;
 import com.example.demo2.service.StudentService;
 import org.slf4j.Logger;
@@ -37,11 +38,11 @@ public class StudentController {
         else {
             logger.info("student is null!");
             if (id == 6) {
-                throw new StudentException(106,"没有要查找的6号用户！");
+                throw new StudentException(ResultEnum.SIX_ERROR);
             } else if (id == 7) {
-                throw new StudentException(107,"没有要查找的7号用户！");
+                throw new StudentException(ResultEnum.SEVEN_ERROR);
             } else {
-                throw new Exception("没有要查找的其他用户！");
+                throw new StudentException(ResultEnum.UNKNOW_ERROR);
             }
         }
         return ResultUtil.success(stu);
