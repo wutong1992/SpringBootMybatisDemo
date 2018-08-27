@@ -12,7 +12,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupp
 import java.nio.charset.Charset;
 import java.util.List;
 
-@Configuration
+//@Configuration
 public class WebMvcConfigurer extends WebMvcConfigurationSupport {
 
     @Override

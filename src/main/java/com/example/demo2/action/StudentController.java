@@ -1,7 +1,10 @@
 package com.example.demo2.action;
 
 import com.example.demo2.common.AsyncTask;
+import com.example.demo2.common.ResultUtil;
+import com.example.demo2.common.StudentException;
 import com.example.demo2.common.UserNameNotMatchPasswordException;
+import com.example.demo2.model.ResultEntity;
 import com.example.demo2.model.StudentEntity;
 import com.example.demo2.service.StudentService;
 import org.slf4j.Logger;
@@ -26,7 +29,7 @@ public class StudentController {
 
     @GetMapping(value = "/find")
     @ResponseStatus(HttpStatus.OK)
-    public StudentEntity find(@RequestParam("id") Integer id) {
+    public ResultEntity find(@RequestParam("id") Integer id) throws Exception {
         logger.info("find method is starting...");
         StudentEntity stu = studentService.getStudentEntityById(id);
         if(stu != null) {
@@ -34,36 +37,43 @@ public class StudentController {
         }
         else {
             logger.info("student is null!");
+            if (id == 6) {
+                throw new StudentException(106,"没有要查找的6号用户！");
+            } else if (id == 7) {
+                throw new StudentException(107,"没有要查找的7号用户！");
+            } else {
+                throw new Exception("没有要查找的其他用户！");
+            }
         }
-        return stu;
+        return ResultUtil.success(stu);
     }
 
     @GetMapping(value = "findAll")
     @ResponseStatus(HttpStatus.OK)
-    public List<StudentEntity> findAll() {
-        return studentService.findAll();
+    public ResultEntity findAll() {
+        return ResultUtil.success(studentService.findAll());
     }
 
     @GetMapping(value = "delete")
-    public String deleteStu(@RequestParam("id") Integer id) {
+    public ResultEntity deleteStu(@RequestParam("id") Integer id) {
        Integer flag = studentService.remove(studentService.getStudentEntityById(id));
        logger.info("flag:"+flag.toString());
-       return "删除成功！";
+       return ResultUtil.success();
     }
 
     @GetMapping(value = "update")
     @ResponseStatus(HttpStatus.OK)
-    public String updateStu() {
+    public ResultEntity updateStu() {
         StudentEntity stu = new StudentEntity();
         stu.setId(4);
         stu.setAge(88);
         studentService.update(stu);
-        return "更新成功！";
+        return ResultUtil.success();
     }
 
     @GetMapping(value = "add")
     @ResponseStatus(HttpStatus.OK)
-    public String add() {
+    public ResultEntity add() {
         StudentEntity stu = new StudentEntity();
         stu.setId(5);
         stu.setAge(33);
@@ -71,7 +81,7 @@ public class StudentController {
         stu.setSex("female");
         stu.setBirthday(new Date());
         studentService.save(stu);
-        return "添加成功！";
+        return ResultUtil.success();
     }
 
     @GetMapping(value = "/hello")

@@ -22,7 +22,12 @@ public class StudentControllerTest {
 
     @Test
     public void find() throws Exception {
-        mvc.perform(MockMvcRequestBuilders.get("/student/hello"))
-                .andExpect(MockMvcResultMatchers.content().string("hello world!"));
+        try {
+            mvc.perform(MockMvcRequestBuilders.get("/student/hello"))
+                    .andExpect(MockMvcResultMatchers.content().string("hello world!"));
+
+        } catch (Exception e) {
+            System.out.println("hello");
+        }
     }
 }
