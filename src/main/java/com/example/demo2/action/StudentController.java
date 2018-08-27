@@ -42,7 +42,7 @@ public class StudentController {
             } else if (id == 7) {
                 throw new StudentException(ResultEnum.SEVEN_ERROR);
             } else {
-                throw new StudentException(ResultEnum.UNKNOW_ERROR);
+                throw new StudentException(ResultEnum.UNKNOWN_ERROR);
             }
         }
         return ResultUtil.success(stu);
