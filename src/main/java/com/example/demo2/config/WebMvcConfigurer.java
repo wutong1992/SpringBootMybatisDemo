@@ -12,11 +12,15 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupp
 import java.nio.charset.Charset;
 import java.util.List;
 
+/**
+ * 配置拦截器，设置@Configuration生效
+ */
 //@Configuration
 public class WebMvcConfigurer extends WebMvcConfigurationSupport {
 
     @Override
     public void  addInterceptors(InterceptorRegistry registry) {
+        //拦截器按照顺序执行
         registry.addInterceptor(new StudentInterceptor()).addPathPatterns("/student/**");
         //registry.addInterceptor(new StudentInterceptor()).addPathPatterns("/student/**").addPathPatterns("/teacher/**");
         super.addInterceptors(registry);

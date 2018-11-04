@@ -8,6 +8,11 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * 当异常发生时，根据请求的类型返回合适的提示信息
+ * 如果是Ajax请求，则返回Json串
+ * 如果是Web请求，则返回设计好的错误页面error.html
+ */
 @ControllerAdvice
 public class StudentExceptionHandler {
     public static final String STUDENT_ERROR_VIEW = "error";
