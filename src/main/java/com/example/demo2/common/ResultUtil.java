@@ -7,7 +7,7 @@ public class ResultUtil {
     public static ResultEntity success (Object obj) {
         ResultEntity result = new ResultEntity();
         result.setCode(0);
-        result.setMsg("成功");
+        result.setMsg("success");
         result.setData(obj);
         return result;
     }
@@ -15,7 +15,7 @@ public class ResultUtil {
     public static ResultEntity success () {
         ResultEntity result = new ResultEntity();
         result.setCode(0);
-        result.setMsg("成功");
+        result.setMsg("success");
         return result;
     }
 

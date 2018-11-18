@@ -93,4 +93,58 @@
   <select id="findAll" resultMap="BaseResultMap">
     select * from student
   </select>
+
+  <!-- 查询所有老师信息 -->
+  <select id="selectClazzWithId" resultType="com.example.demo2.model.ClazzEntity">
+    select * from tb_clazz where id = #{clazz_id,jdbcType=INTEGER}
+  </select>
+  <resultMap id="teacherResultMap" type="com.example.demo2.model.TeacherEntity">
+    <id property="id" column="id"/>
+    <result property="name" column="name"/>
+    <result property="sex" column="sex"/>
+    <result property="age" column="age"/>
+    <!-- 关联映射 -->
+    <association property="clazz" column="clazz_id" javaType="com.example.demo2.model.ClazzEntity" select="selectClazzWithId"/>
+  </resultMap>
+  <select id="findAllTeachers" resultMap="teacherResultMap">
+    select * from tb_teacher
+  </select>
+
+  <!-- 查询所有班级信息 -->
+  <select id="selectTeachersWithClazzId" resultType="com.example.demo2.model.TeacherEntity">
+    select * from tb_teacher where clazz_id = #{id}
+  </select>
+  <resultMap id="clazzResultMap" type="com.example.demo2.model.ClazzEntity">
+    <id property="id" column="id"/>
+    <result property="code" column="code"/>
+    <collection property="teachers" column="id" javaType="ArrayList" ofType="com.example.demo2.model.TeacherEntity" select="selectTeachersWithClazzId"/>
+  </resultMap>
+  <select id="findAllClazzs" resultMap="clazzResultMap">
+    select * from tb_clazz
+  </select>
+
+  <select id="findTeachersClazz1" resultType="com.example.demo2.model.TeacherEntity">
+    select * from tb_teacher where clazz_id = 1
+    <choose>
+      <when test="sex != null">
+        and sex = #{sex}
+      </when>
+      <when test="age != null">
+        and age = #{age}
+      </when>
+      <otherwise>
+        and id = 1
+      </otherwise>
+    </choose>
+  </select>
+
+  <select id="selectTeachersIn" resultType="com.example.demo2.model.TeacherEntity">
+    select *
+    from tb_teacher
+    where id in
+    <foreach collection="list" item="item" index="index" open="(" close=")" separator=",">
+      #{item}
+    </foreach>
+  </select>
+
 </mapper>

@@ -6,6 +6,7 @@ import com.example.demo2.common.StudentException;
 import com.example.demo2.model.ResultEntity;
 import com.example.demo2.model.ResultEnum;
 import com.example.demo2.model.StudentEntity;
+import com.example.demo2.model.TeacherEntity;
 import com.example.demo2.service.StudentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +15,9 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.Future;
 
@@ -52,6 +55,36 @@ public class StudentController {
     @ResponseStatus(HttpStatus.OK)
     public ResultEntity findAll() {
         return ResultUtil.success(studentService.findAll());
+    }
+
+    @GetMapping(value = "findAllTeachers")
+    @ResponseStatus(HttpStatus.OK)
+    public ResultEntity findAllTeachers() {
+        return ResultUtil.success(studentService.findAllTeachers());
+    }
+
+    @GetMapping(value = "findAllClazzs")
+    @ResponseStatus(HttpStatus.OK)
+    public ResultEntity findAllClazzs() {
+        return ResultUtil.success(studentService.findAllClazzs());
+    }
+
+    @GetMapping(value = "findTeachersClazz1")
+    @ResponseStatus(HttpStatus.OK)
+    public ResultEntity findTeachersClazz1() {
+        HashMap<String,Object> params = new HashMap<>();
+        //params.put("age","13");
+        return ResultUtil.success(studentService.findTeachersClazz1(params));
+    }
+
+    @GetMapping(value = "findTeachersIn")
+    @ResponseStatus(HttpStatus.OK)
+    public ResultEntity findTeachersIn() {
+        List<Integer> ids = new ArrayList<>();
+        ids.add(1);
+        ids.add(2);
+        ids.add(5);
+        return ResultUtil.success(studentService.findTeachersIn(ids));
     }
 
     @GetMapping(value = "delete")
