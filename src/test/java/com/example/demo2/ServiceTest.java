@@ -22,6 +22,6 @@ public class ServiceTest {
     public void findAll() {
         List<StudentEntity> stus = studentService.findAll();
         System.out.println(stus.get(0).getAge());
-        Assert.assertEquals(new Integer(24),stus.get(0).getAge());
+        Assert.assertEquals(new Integer(25),stus.get(0).getAge());
     }
 }
