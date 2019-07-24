@@ -32,7 +32,7 @@ public class AsyncTask {
         long start = System.currentTimeMillis();
         Thread.sleep(600);
         long end = System.currentTimeMillis();
-        System.out.println("任务2耗时：" + (end - start) + "毫秒");
+        System.out.println("任务3耗时：" + (end - start) + "毫秒");
         return new AsyncResult<>(true);
     }
 }
