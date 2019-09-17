@@ -1,2 +1,2 @@
 # SpringBootMybatisDemo
-Spring Boot Mybatis Demo 2
+Spring Boot Mybatis Demo
